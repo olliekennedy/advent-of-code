@@ -1,22 +1,22 @@
-require 'find_addends'
+require 'special_calculator'
 
-RSpec.describe FindAddends do
+RSpec.describe SpecialCalculator do
   describe '#find' do
     it 'returns the product of the two addends based on input of 2020' do
-      expect(subject.find('1721
+      expect(subject.find(2, 2020, '1721
 979
 366
 299
 675
-1456', 2, 2020)).to eq 514579
+1456')).to eq 514579
     end
     it 'returns the product of the three addends based on input of 2020' do
-      expect(subject.find('1721
+      expect(subject.find(3, 2020, '1721
 979
 366
 299
 675
-1456', 3, 2020)).to eq 241861950
+1456')).to eq 241861950
     end
   end
 end

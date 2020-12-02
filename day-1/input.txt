@@ -1,6 +1,4 @@
-require './lib/find_addends.rb'
-
-input = '1865
+1865
 1179
 1328
 1390
@@ -199,8 +197,4 @@ input = '1865
 1525
 1964
 1715
-1602'
-
-finder = FindAddends.new
-puts "The answer to the first part is #{finder.find(input, 2, 2020)}"
-puts "The answer to the second part is #{finder.find(input, 3, 2020)}"
+1602
