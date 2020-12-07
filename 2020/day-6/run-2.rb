@@ -1,5 +1,4 @@
-input = File.read('./input.txt').split("\n\n").map{|x| x.split("\n") }.map{ |x| x.map{ |y| y.split("")}}#.map{ |x| x.gsub("\n", "") }#.map(&:to_i)
-# puts input.inspect
+input = File.read('./input.txt').split("\n\n").map{|x| x.split("\n") }.map{ |x| x.map{ |y| y.split("")}}
 
 output = 0
 input.each do |x|
@@ -15,7 +14,6 @@ input.each do |x|
       count << y
     end
   end
-  puts count.uniq.inspect
   output += count.uniq.length
 end
 

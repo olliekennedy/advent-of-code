@@ -9,7 +9,6 @@ input.each do |x|
       arr << z
     end
   end
-  # puts "arr = #{arr.uniq.length.inspect}"
   output << arr.uniq.length
 end
 
