@@ -5,7 +5,7 @@ count = 0
 acc = 0
 pos = 0
 while true do
-  puts "Line = #{input[pos]}"
+  # puts "Line = #{input[pos]}"
   break if input[pos].length == 3
   input[pos] << 1
   case input[pos][0]
@@ -17,8 +17,8 @@ while true do
   when "jmp"
     pos += input[pos][1]
   end
-  puts "ACC = #{acc}"
-  puts "POS = #{pos}"
+  # puts "ACC = #{acc}"
+  # puts "POS = #{pos}"
   count += 1
 end
 

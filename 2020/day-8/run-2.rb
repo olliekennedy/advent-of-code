@@ -1,4 +1,5 @@
 @input = File.readlines('./input.txt').map{ |x| x.gsub("\n", "") }.map{|x| x.gsub("+","")}.map{ |x| x.split(" ")}.map{|x| [x[0],x[1].to_i]}#
+#puts @input.inspect
 
 def jmpNopSwitch(i)
   if @input[i][0] == "jmp"
