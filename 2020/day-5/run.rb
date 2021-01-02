@@ -1,5 +1,4 @@
 input = File.readlines('./input.txt').map{ |x| x.gsub("\n", "") }.map{ |x| x.split("") }
-# puts input.inspect
 
 seats = []
 input.each do |bp|
@@ -8,10 +7,8 @@ input.each do |bp|
   bp.each do |char|
     if char == 'F'
       row[1] = row[1] - (row[1] - row[0])/2 - 1
-      #puts "Char: #{char} - [#{row[0]},#{row[1]}]"
     elsif char == 'B'
       row[0] = row[1] - (row[1] - row[0])/2
-      #puts "Char: #{char} - [#{row[0]},#{row[1]}]"
     elsif char == 'L'
       col[1] = col[1] - (col[1] - col[0])/2 - 1
     elsif char == 'R'
@@ -20,10 +17,7 @@ input.each do |bp|
   end
   id = (row[0] * 8) + col[0]
   seats << [row[0], col[0], id]
-  #uts "Row: #{row[0]}, Col: #{col[0]}, ID: #{id}"
 end
-# puts seats.max()
-# puts seats.min()
 
 pot_seats = []
 (1..128).each do |row|
