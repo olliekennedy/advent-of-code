@@ -1,4 +1,19 @@
-@input = File.readlines('./test-input.txt').map{ |x| x.gsub("\n", "") }.map{|x| x.gsub("no other bags.", "0")}.map{ |x| x.split(" contain ")}.map{|x| [x[0].gsub(" bags", ""),x[1].gsub(" bags", "").gsub(".","").gsub(" bag", "").split(", ")]}
+@input = File.readlines('./test-input.txt')
+  .map{ |x|
+    x.gsub("\n", "")
+  }.map{ |x|
+    x.gsub("no other bags.", "0")
+  }.map{ |x|
+    x.split(" contain ")
+  }.map{|x|
+    [
+      x[0].gsub(" bags", ""),
+      x[1].gsub(" bags", "")
+        .gsub(".","")
+        .gsub(" bag", "")
+        .split(", ")
+    ]
+  }
 seed = @input.detect { |x| x[0] == "shiny gold" }
 
 def bags(ln)

@@ -1,11 +1,12 @@
 world = Hash.new('.')
-File.readlines('./input.txt').map(&:chomp).each_with_index do |line, x|
+File.readlines('./gareth-input.txt').map(&:chomp).each_with_index do |line, x|
   line.split('').each_with_index { |c, y| world[[x,y,0]] = c }
 end
 
 generations = 6
 i = 0
 while i < generations do
+  puts "World height = #{world.length}";
   next_state = world.dup
   coordinates = world.keys
   min_x = coordinates.map { |coord| coord[0] }.min - 1
@@ -45,6 +46,7 @@ while i < generations do
       end
     end
   end
+  puts next_state.values.select { |val| val == '#' }.length
   world = next_state
   i += 1
 end
