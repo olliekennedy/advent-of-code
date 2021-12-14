@@ -1,0 +1,21 @@
+cefabd cagedb | cdfeb fcadb cdfeb cdbaf
+
+pos
+1 - d
+2 - e
+3 - a
+4
+5 - g
+6 - b
+7
+
+
+nums
+1 - ab
+2 - gcdfa
+3 - fbcad
+4 - eafb
+5 - cdfbe
+6 - cdfgeb
+7 - dab
+8 - acedgfb

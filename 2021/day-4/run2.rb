@@ -1,16 +1,17 @@
-boards = File.read('./test-input.txt').split("\n\n")
+boards = File.read('./input.txt').split("\n\n") #.map{ |x| x.gsub("\n", "") }#.map(&:to_i)
 draws = boards.shift.split(",").map(&:to_i)
 boards = boards.map { |x| x.split("\n").map { |y| y.split(" ").map { |z| [z.to_i, false] } } }
-
-def find_winner(boards)
-  boards.each do |board|
+def remove_winners(boards)
+  boards.each_with_index do |board, i|
     [board, board.transpose].each do |attempts|
       attempts.each do |row|
-        return board if row.count { |tile| tile[1] == true } == row.length
+        if row.count { |tile| tile[1] == true } == row.length
+          boards.delete_at(i)
+        end
       end
     end
   end
-  nil
+  boards
 end
 
 def mark_boards(boards, draw)
@@ -35,12 +36,16 @@ def sum_unmarked(board)
   sum
 end
 
-draws.each do |draw|
+winning_board = []
+draws.each_with_index do |draw, i|
   mark_boards(boards, draw)
-  winning_board = find_winner(boards)
+  remaining_boards = remove_winners(boards)
+  if remaining_boards.length == 1
+    winning_board = Marshal.load(Marshal.dump(remaining_boards[0]))
+  end
 
-  unless winning_board.nil?
-    puts sum_unmarked(winning_board) * draw
+  if remaining_boards.length == 0
+    puts (sum_unmarked(winning_board) - draw) * draw
     break
   end
 end
