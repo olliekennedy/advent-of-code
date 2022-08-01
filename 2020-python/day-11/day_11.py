@@ -36,8 +36,10 @@ def run_part(part) -> int:
 
                 if seat in empty_seats:
                     new_empty_seats.add(seat)
-                elif seat in occupied_seats:
+                    continue
+                if seat in occupied_seats:
                     new_occupied_seats.add(seat)
+                    continue
 
         if nothing_has_changed(empty_seats, new_empty_seats, new_occupied_seats, occupied_seats):
             break
