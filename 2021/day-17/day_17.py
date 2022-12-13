@@ -1,4 +1,4 @@
-TEST = False
+TEST = True
 
 
 def sum_to_zero(x):
@@ -16,41 +16,26 @@ def main():
     target = file_contents.replace('target area: x=', '').replace(' y=', '').split(',')
     min_x, max_x, min_y, max_y = get_min_max_x_y(target)
     print(get_min_max_x_y(target))
-    # tests(min_x, max_x, min_y, max_y)
-    input_velocity = [6, 9]
-    # if does_it_hit(input_velocity, min_x, max_x, min_y, max_y):
-    #     print('HIT with:', input_velocity)
-    # else:
-    #     print('MISS with:', input_velocity)
 
-    x = 1
-    y = 1
-    last_x = x
-    hits = []
-    iterations = 0
-    while True:
-        if iterations > 10000:
-            break
-        iterations += 1
-        print(hits)
-        if sum_to_zero(x) < min_x:
-            print("won't reach")
-            x += 1
-            continue
-        hit, spot = does_it_hit([x, y], min_x, max_x, min_y, max_y)
-        print(x, y, hit, spot, last_x)
-        if hit:
-            print('WOOOOOOO')
-            hits.append([x, y])
+    hits = set()
 
-        if spot[0] > max_x or spot[1] < min_y - 40:
-            x += 1
-            y = 1
-            continue
-        if spot[0] <= max_x:
-            y += 1
-            continue
+    for x in range(-400, 400):
+        print(x)
+        for y in range(-400, 400):
+            if sum_to_zero(x) < min_x:
+                # print("won't reach")
+                x += 1
+                continue
+            hit, spot = does_it_hit([x, y], min_x, max_x, min_y, max_y)
+            # print(x, y, hit, spot, last_x)
+            if hit:
+                hits.add((x, y))
+
+    print(hits)
+    print(len(hits))
     print(sum_to_zero(max(map(lambda x: x[1], hits))))
+    assert len(hits) == 112 if TEST else len(hits) == 1117
+
 
 def tests(min_x, max_x, min_y, max_y):
     assert does_it_hit([7, 2], min_x, max_x, min_y, max_y)[0]
