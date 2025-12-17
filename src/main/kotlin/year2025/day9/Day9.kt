@@ -1,8 +1,7 @@
 package org.example.lunchleague.day9
 
-import org.example.lunchleague.day9.Status.INSIDE
 import org.example.lunchleague.day9.Status.ON_BOUNDARY
-import org.example.lunchleague.day9.Status.OUTSIDE
+import org.example.lunchleague.day9.Status.NOT_ON_BOUNDARY
 import kotlin.math.abs
 
 val inputParameters = testInput()
@@ -104,7 +103,7 @@ fun prettyPrint(
 enum class Status {
     ON_BOUNDARY,
     INSIDE,
-    OUTSIDE,
+    NOT_ON_BOUNDARY,
 }
 
 class SomeTest {
@@ -120,99 +119,56 @@ fun checkIfAllPositionsAlongLineInsideGreenTiles(
     if (position1.x == position2.x) {
         val positionsAlongLine = (0..inputParameters.maxY).map { Position(position1.x, it) }.sortedBy { it.y }
 
-        var previousStatus = OUTSIDE
-        var status = OUTSIDE
-
         println("positionsAlongLine = ${positionsAlongLine}")
 
+        var numberOfChanges = 0
+        var previousStatus = NOT_ON_BOUNDARY
+
         positionsAlongLine.forEach { position ->
-            println("position = ${position}")
-            println("previousStatus = ${previousStatus}")
-            println("status = ${status}")
-            when (status) {
-                OUTSIDE -> {
-                    if (position in greenTiles) {
-                        status = ON_BOUNDARY
-                    }
-                    previousStatus = OUTSIDE
-                    if (position.y < position1.y || position.y > position2.y) {
-                        return false
-                    }
-                }
-                ON_BOUNDARY -> {
-                    if (position !in greenTiles) {
-                        //                    onAnEdge = false
-                        if (previousStatus == OUTSIDE) {
-                            status = INSIDE
-                        } else {
-                            status = OUTSIDE
-                        }
-                        previousStatus = ON_BOUNDARY
-                    }
-                    //                    onAnEdge = true
-                }
-                INSIDE -> {
-                    if (position in greenTiles) {
-                        status = ON_BOUNDARY
-                    }
-                    previousStatus = INSIDE
-                }
+            val status = if (position in greenTiles) ON_BOUNDARY else NOT_ON_BOUNDARY
+            if (status != previousStatus) {
+                numberOfChanges++
             }
+            previousStatus = status
         }
 
+        if (numberOfChanges % 2 != 0) {
+            TODO()
+        }
     } else if (position1.y == position2.y) {
         val positionsAlongLine = (0..inputParameters.maxX).map { Position(it, position1.y) }.sortedBy { it.x }
 
-        var previousStatus = OUTSIDE
-        var status = OUTSIDE
 
         println("positionsAlongLine = ${positionsAlongLine}")
 
-        positionsAlongLine.forEach { position ->
-            println("position = ${position}")
-            println("previousStatus = ${previousStatus}")
-            println("status = ${status}")
+        var numberOfChanges = 0
+        var previousStatus = NOT_ON_BOUNDARY
 
-            when (status) {
-                OUTSIDE -> {
-                    if (position in greenTiles) {
-                        println("now on a boundary")
-                        status = ON_BOUNDARY
-                    } else {
-                        println("still outside")
-                    }
-                    previousStatus = OUTSIDE
-                }
-                ON_BOUNDARY -> {
-                    if (position !in greenTiles) {
-                        println("was on a boundary and now not")
-                        if (previousStatus == OUTSIDE) {
-                            println("previous position was outside so must now be inside")
-                            status = INSIDE
-                        } else if (previousStatus == INSIDE) {
-                            println("previous position was inside so must now be outside")
-                            status = OUTSIDE
-                            if (position.x >= position1.x && position.x <= position2.x) {
-                                println("the line is outside. checked position $position where the X is between ${position1} and ${position2}")
-                                return false
-                            }
-                        } else {
-                            TODO()
-                        }
-                        previousStatus = ON_BOUNDARY
-                    }
-                    //                    onAnEdge = true
-                }
-                INSIDE -> {
-                    if (position in greenTiles) {
-                        status = ON_BOUNDARY
-                    }
-                    previousStatus = INSIDE
-                }
-            }
+        positionsAlongLine.all { position ->
+            checkIfPositionInsideGreenTiles(position, greenTiles)
+        }
+        println("numberOfChanges = ${numberOfChanges}")
+
+        if (numberOfChanges % 2 != 0) {
+            TODO()
         }
     } else {TODO()}
     return true
+}
+
+fun checkIfPositionInsideGreenTiles(
+    position: Position,
+    greenTiles: Set<Position>,
+): Boolean {
+    var status = position in greenTiles
+    var positionToCheck = position
+    var numberOfChanges = 0
+
+    while (true) {
+
+    }
+
+    TODO("Not yet implemented")
 }
 
 fun findAreaBetween(tile1: Position, tile2: Position): Long {
